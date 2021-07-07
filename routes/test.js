@@ -1,4 +1,6 @@
 var express = require('express');
+var faker = require('faker')
+
 var router = express.Router();
 
 /* GET users listing. */
@@ -11,7 +13,13 @@ router.get('/test1', function(req,res,next) {
 });
 
 router.get('/gettable', function(req,res,next) {
-  res.json([{ label: '傻逼', value: 'idiot' },{ label: '傻逼', value: 'idiot' },{ label: '傻逼', value: 'idiot' }])
+  var i = 0
+  var result = []
+  while(i < 10000) {
+    result.push({ name: faker.name.findName(), country: faker.address.country(), phone: faker.phone.phoneNumber(), email: faker.internet.email(), company: faker.company.companyName() })
+    i++;
+  }
+  res.json(result)
 })
 
 module.exports = router;

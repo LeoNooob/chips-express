@@ -27,7 +27,7 @@ app.use(cookieParser());
 
 // 解析token获取用户信息
 app.use(function(req, res, next) {
-  var token = req.headers['authorization'];
+  var token = req.headers['Authorization'];
   if(token == undefined){
       return next();
   }else{
