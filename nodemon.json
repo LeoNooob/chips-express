@@ -11,7 +11,7 @@
     },
     "watch": [],
     "env": {
-        "NODE_ENV": "development"
+        // "NODE_ENV": "development"
     },
     "ext": "ejs js json"
 }

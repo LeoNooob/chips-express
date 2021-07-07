@@ -16,7 +16,7 @@ router.get('/gettable', function(req,res,next) {
   var i = 0
   var result = []
   while(i < 10000) {
-    result.push({ name: faker.name.findName(), country: faker.address.country(), phone: faker.phone.phoneNumber(), email: faker.internet.email(), company: faker.company.companyName() })
+    result.push({ name: faker.name.findName(), country: faker.address.country(), phone: faker.phone.phoneNumber(), email: faker.internet.email(), company: faker.company.companyName(), account: faker.finance.account() })
     i++;
   }
   res.json(result)
