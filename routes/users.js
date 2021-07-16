@@ -4,7 +4,7 @@ var router = express.Router();
 
 // 验证token
 router.post('/vertify', function(req, res, next) {
-    if(req.data){
+    if(req.user){
         return res.json({
             msg:'身份验证成功'
         })
