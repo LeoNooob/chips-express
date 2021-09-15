@@ -13,7 +13,7 @@ router.get('/', function (req, res, next) {
 router.get('/faker', function (req, res, next) {
   var i = 0
   var result = []
-  while (i < 1000) {
+  while (i < 100000) {
     //faker案例
     result.push({ name: faker.name.findName(), country: faker.address.country(), phone: faker.phone.phoneNumber(), email: faker.internet.email(), company: faker.company.companyName(), account: faker.finance.account() })
     i++;
