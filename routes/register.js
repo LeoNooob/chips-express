@@ -1,0 +1,32 @@
+// register.js文件
+var express = require('express');
+var router = express.Router();
+var Accounts = require('../models/accounts')
+
+// 生成token
+router.post('/', function (req, res, next) {
+    const _body = req.body
+    if (_body.username && _body.password) {
+        authUsername(_body.username, function (auth) {
+            if (auth) {
+                const newAccount = new Accounts({ username: _body.username, password: _body.password, gender: _body.gender, email: _body.email });
+                newAccount.save();
+                res.json({ result: '注册成功' })
+            } else {
+                res.json({ result: '注册失败：用户名已存在' })
+            }
+        })
+    } else {
+        res.json({ result: '参数不得为空' })
+    }
+});
+
+function authUsername(username, callback) {
+    var auth = null
+    Accounts.find({ username: username }, function (err, data) {
+        auth = !(data.length > 0)
+        callback(auth)
+    })
+}
+
+module.exports = router;

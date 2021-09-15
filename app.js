@@ -9,10 +9,10 @@ var usersRouter = require('./routes/users');
 var testRouter = require('./routes/test');
 var loginRouter = require('./routes/login');
 var sqlRouter = require('./routes/mysql');
+var registerRouter = require('./routes/register')
 
 var vertoken = require('./public/javascripts/token_vertify.js')
 var expressJwt = require('express-jwt')
-  
 var app = express();
 
 // view engine setup
@@ -23,7 +23,6 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-
 
 // 解析token获取用户信息
 app.use(function(req, res, next) {
@@ -44,8 +43,9 @@ app.use(expressJwt({
   secret: 'mes_qdhd_mobile_xhykjyxgs',
   algorithms: ['HS256']
 }).unless({
-  path: ['/login']      //不需要token的url
+  path: ['/login', '/register', '/test']      //不需要token的url
 }))
+
 
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -54,6 +54,7 @@ app.use('/users', usersRouter);
 app.use('/test', testRouter);
 app.use('/login', loginRouter);
 app.use('/mysql', sqlRouter);
+app.use('/register', registerRouter)
 
 app.use(function(err, req, res, next) {
   if (err.status == 401) {

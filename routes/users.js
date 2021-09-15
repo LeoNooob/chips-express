@@ -1,7 +1,7 @@
 // users.js文件
 var express = require('express');
 var router = express.Router();
-
+const Account = require('../models/accounts.js');
 // 验证token
 router.post('/vertify', function(req, res, next) {
     if(req.user){
