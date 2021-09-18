@@ -4,6 +4,11 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+var vue = require('vue')
+var serverRender = require('vue-server-renderer').createRenderer({
+  template:require("fs").readFileSync(path.join(__dirname,"./index.html"),"utf-8")
+});
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var testRouter = require('./routes/test');
@@ -38,6 +43,20 @@ app.use(function(req, res, next) {
       })
   }
 });
+
+app.get('/home', (req, res) => {
+  let vm = new vue({
+    data: {
+      message: 'Hello! My Express Server!'
+    },
+    template: `<h1>{{ message }}</h1>`
+  })
+  res.status(200);
+  res.setHeader("Content-Type","text/html;charset-utf-8;");
+  serverRender.renderToString(vm).then((html) => {
+    res.end(html);
+  }).catch(error => console.log(error))
+})
 
 app.use(expressJwt({
   secret: 'mes_qdhd_mobile_xhykjyxgs',
