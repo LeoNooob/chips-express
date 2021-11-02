@@ -3,7 +3,7 @@ var express = require('express');
 var router = express.Router();
 var Accounts = require('../models/accounts')
 
-// 生成token
+// 注册用户
 router.post('/', function (req, res, next) {
     const _body = req.body
     if (_body.username && _body.password) {
@@ -20,6 +20,21 @@ router.post('/', function (req, res, next) {
         res.json({ result: '参数不得为空' })
     }
 });
+
+router.post('/auth', function (req, res,next) {
+    const _body = req.body
+    if (_body.username) {
+        authUsername(_body.username, function(auth) {
+            if (auth) {
+                res.json({ success: 0, result: '用户名已被占用' })
+            } else {
+                res.json({ success: 1, result: '用户名未占用'})
+            } 
+        })
+    } else {
+        res.json({ success: 0, result: '缺少username参数' })
+    }
+})
 
 function authUsername(username, callback) {
     var auth = null
