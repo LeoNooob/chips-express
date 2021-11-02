@@ -26,9 +26,9 @@ router.post('/auth', function (req, res,next) {
     if (_body.username) {
         authUsername(_body.username, function(auth) {
             if (auth) {
-                res.json({ success: 0, result: '用户名已被占用' })
-            } else {
                 res.json({ success: 1, result: '用户名未占用'})
+            } else {
+                res.json({ success: 0, result: '用户名已被占用' })
             } 
         })
     } else {
@@ -40,6 +40,7 @@ function authUsername(username, callback) {
     var auth = null
     Accounts.find({ username: username }, function (err, data) {
         auth = !(data.length > 0)
+        console.log(auth)
         callback(auth)
     })
 }

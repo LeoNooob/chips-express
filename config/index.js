@@ -1,6 +1,6 @@
 const config = {
     server: {
-        port: process.env.SERVER_HOST
+        port: process.env.SERVER_PORT
     },
     db: {
         mongodb: {
